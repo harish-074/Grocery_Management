@@ -1,0 +1,5 @@
+com\grocery\controller\AuthController.class
+com\grocery\repository\UserRepository.class
+com\grocery\GroceryApplication.class
+com\grocery\model\User.class
+com\grocery\GroceryApplication$1.class

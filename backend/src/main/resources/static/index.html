@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Manager Pro</title>
+    <meta name="description" content="Premium grocery management system for shopkeepers">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Login View -->
+        <div id="login-view" class="view active">
+            <div class="glass-panel login-panel">
+                <div class="logo-container">
+                    <div class="logo-icon">🛒</div>
+                    <h1>Grocery Manager</h1>
+                    <p>Enter your credentials to continue</p>
+                </div>
+                <form id="login-form">
+                    <div class="input-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required placeholder="shop@grocery.com">
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.875rem;">
+                        Don't have an account? <a href="#" id="show-register" style="color: var(--primary-color); text-decoration: none;">Register here</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Register View -->
+        <div id="register-view" class="view">
+            <div class="glass-panel login-panel" style="max-width: 500px;">
+                <div class="logo-container" style="margin-bottom: 1.5rem;">
+                    <div class="logo-icon" style="font-size: 2rem; margin-bottom: 0.5rem;">📝</div>
+                    <h1>Create Account</h1>
+                    <p>Register your grocery shop</p>
+                </div>
+                <form id="register-form">
+                    <div class="form-grid">
+                        <div class="input-group full-width">
+                            <label for="reg-name">Full Name</label>
+                            <input type="text" id="reg-name" required placeholder="John Doe">
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-email">Email Address</label>
+                            <input type="email" id="reg-email" required placeholder="shop@grocery.com">
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-password">Password</label>
+                            <input type="password" id="reg-password" required placeholder="••••••••">
+                        </div>
+                        <div class="input-group full-width">
+                            <label for="reg-shop-name">Name of the Shop</label>
+                            <input type="text" id="reg-shop-name" required placeholder="Fresh Mart">
+                        </div>
+                        <div class="input-group full-width">
+                            <label for="reg-shop-address">Shop Address</label>
+                            <input type="text" id="reg-shop-address" required placeholder="123, Main Street, City">
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-shop-license">Shop License</label>
+                            <input type="text" id="reg-shop-license" required placeholder="LIC-12345">
+                        </div>
+                        <div class="input-group">
+                            <label for="reg-phone">Phone Number</label>
+                            <input type="tel" id="reg-phone" required placeholder="9876543210">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block mt-4">Register</button>
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.875rem;">
+                        Already have an account? <a href="#" id="show-login" style="color: var(--primary-color); text-decoration: none;">Sign In</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Shop Page View (Main page after login) -->
+        <div id="shop-view" class="view">
+            <header class="glass-header">
+                <div class="header-content">
+                    <div class="header-brand">
+                        <span class="brand-icon">🛒</span>
+                        <h2 id="header-shop-name">My Shop</h2>
+                    </div>
+                    <div class="header-right">
+                        <button id="profile-icon-btn" class="profile-avatar" title="Profile Menu">
+                            <span id="avatar-letter">U</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Profile Dropdown Popup -->
+            <div id="profile-dropdown" class="profile-dropdown">
+                <div class="profile-dropdown-header">
+                    <div class="profile-dropdown-avatar">
+                        <span id="dropdown-avatar-letter">U</span>
+                    </div>
+                    <div class="profile-dropdown-info">
+                        <h4 id="dropdown-user-name">User Name</h4>
+                        <p id="dropdown-user-email">user@email.com</p>
+                    </div>
+                </div>
+                <div class="profile-dropdown-divider"></div>
+                <ul class="profile-dropdown-menu">
+                    <li id="menu-profile" class="dropdown-item">
+                        <span class="dropdown-icon">👤</span> View Profile
+                    </li>
+                    <li id="menu-edit-profile" class="dropdown-item">
+                        <span class="dropdown-icon">✏️</span> Edit Profile
+                    </li>
+                    <li id="menu-add-product" class="dropdown-item">
+                        <span class="dropdown-icon">➕</span> Add Product
+                    </li>
+                    <li id="menu-view-products" class="dropdown-item">
+                        <span class="dropdown-icon">📦</span> View Products
+                    </li>
+                </ul>
+                <div class="profile-dropdown-divider"></div>
+                <ul class="profile-dropdown-menu">
+                    <li id="menu-logout" class="dropdown-item dropdown-item-danger">
+                        <span class="dropdown-icon">🚪</span> Log Out
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Overlay for closing dropdown when clicking outside -->
+            <div id="dropdown-overlay" class="dropdown-overlay"></div>
+
+            <main class="container">
+                <!-- Shop Info Hero Section -->
+                <div class="shop-hero">
+                    <div class="shop-hero-content">
+                        <div class="shop-badge">🏪</div>
+                        <h1 id="shop-display-name" class="shop-title">My Grocery Shop</h1>
+                        <div class="shop-address-row">
+                            <span class="address-icon">📍</span>
+                            <p id="shop-display-address" class="shop-address-text">123, Main Street, City</p>
+                        </div>
+                        <div class="shop-meta">
+                            <div class="meta-chip">
+                                <span>📋</span>
+                                <span id="shop-display-license">LIC-12345</span>
+                            </div>
+                            <div class="meta-chip">
+                                <span>📞</span>
+                                <span id="shop-display-phone">9876543210</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Action Cards -->
+                <div class="section-title">
+                    <h2>Quick Actions</h2>
+                </div>
+                <div class="action-cards">
+                    <div class="card glass-card action-card" id="go-to-add-product">
+                        <div class="card-icon">➕</div>
+                        <h3>Add Product</h3>
+                        <p>Register new inventory items into the system</p>
+                    </div>
+                    <div class="card glass-card action-card" id="go-to-view-products">
+                        <div class="card-icon">📦</div>
+                        <h3>View Products</h3>
+                        <p>Check previously stored product details</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Profile View -->
+        <div id="profile-view" class="view">
+            <header class="glass-header">
+                <div class="header-content">
+                    <button class="btn btn-icon back-btn" data-back="shop">←</button>
+                    <h2>My Profile</h2>
+                    <div style="width: 40px;"></div>
+                </div>
+            </header>
+            <main class="container">
+                <div class="glass-panel profile-card">
+                    <div class="profile-card-header">
+                        <div class="profile-large-avatar">
+                            <span id="profile-avatar-big">U</span>
+                        </div>
+                        <h2 id="profile-name-display">User Name</h2>
+                        <p id="profile-email-display">user@email.com</p>
+                    </div>
+                    <div class="profile-details-grid">
+                        <div class="profile-detail-item">
+                            <span class="detail-label">🏪 Shop Name</span>
+                            <span id="profile-shop-name" class="detail-value">My Shop</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">📍 Address</span>
+                            <span id="profile-shop-address" class="detail-value">123, Main Street</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">📋 License</span>
+                            <span id="profile-shop-license" class="detail-value">LIC-12345</span>
+                        </div>
+                        <div class="profile-detail-item">
+                            <span class="detail-label">📞 Phone</span>
+                            <span id="profile-phone" class="detail-value">9876543210</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block mt-4" id="profile-edit-btn">✏️ Edit Profile</button>
+                </div>
+            </main>
+        </div>
+
+        <!-- Edit Profile View -->
+        <div id="edit-profile-view" class="view">
+            <header class="glass-header">
+                <div class="header-content">
+                    <button class="btn btn-icon back-btn" data-back="profile">←</button>
+                    <h2>Edit Profile</h2>
+                    <div style="width: 40px;"></div>
+                </div>
+            </header>
+            <main class="container">
+                <div class="glass-panel form-panel">
+                    <form id="edit-profile-form">
+                        <div class="form-grid">
+                            <div class="input-group full-width">
+                                <label for="edit-name">Full Name</label>
+                                <input type="text" id="edit-name" required placeholder="Your name">
+                            </div>
+                            <div class="input-group full-width">
+                                <label for="edit-shop-name">Shop Name</label>
+                                <input type="text" id="edit-shop-name" required placeholder="Shop name">
+                            </div>
+                            <div class="input-group full-width">
+                                <label for="edit-shop-address">Shop Address</label>
+                                <input type="text" id="edit-shop-address" required placeholder="Shop address">
+                            </div>
+                            <div class="input-group">
+                                <label for="edit-shop-license">Shop License</label>
+                                <input type="text" id="edit-shop-license" required placeholder="License number">
+                            </div>
+                            <div class="input-group">
+                                <label for="edit-phone">Phone Number</label>
+                                <input type="tel" id="edit-phone" required placeholder="Phone number">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-block">💾 Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+
+        <!-- Add Product View -->
+        <div id="add-product-view" class="view">
+            <header class="glass-header">
+                <div class="header-content">
+                    <button class="btn btn-icon back-btn" data-back="shop">←</button>
+                    <h2>Add New Product</h2>
+                    <div style="width: 40px;"></div>
+                </div>
+            </header>
+            <main class="container">
+                <div class="glass-panel form-panel">
+                    <form id="add-product-form">
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label for="product-id">Product ID</label>
+                                <input type="text" id="product-id" required placeholder="e.g. PRD-001">
+                            </div>
+                            <div class="input-group">
+                                <label for="product-name">Product Name</label>
+                                <input type="text" id="product-name" required placeholder="e.g. Organic Apples">
+                            </div>
+                            <div class="input-group">
+                                <label for="product-quantity">Quantity</label>
+                                <input type="number" id="product-quantity" required placeholder="0" min="0">
+                            </div>
+                            <div class="input-group">
+                                <label for="product-price">Price (₹)</label>
+                                <input type="number" id="product-price" required placeholder="0.00" step="0.01" min="0">
+                            </div>
+                            <div class="input-group full-width">
+                                <label for="product-date">Date of Arrival</label>
+                                <input type="date" id="product-date" required>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-block">Save Product</button>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+
+        <!-- View Products View -->
+        <div id="view-products-view" class="view">
+            <header class="glass-header">
+                <div class="header-content">
+                    <button class="btn btn-icon back-btn" data-back="shop">←</button>
+                    <h2>Stored Products</h2>
+                    <div style="width: 40px;"></div>
+                </div>
+            </header>
+            <main class="container">
+                <div class="glass-panel table-panel">
+                    <div class="table-responsive">
+                        <table id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                    <th>Price (₹)</th>
+                                    <th>Arrival Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-list">
+                                <!-- Products will be dynamically inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="empty-state" class="empty-state hidden">
+                        <div class="empty-icon">📭</div>
+                        <h3>No products found</h3>
+                        <p>You haven't added any products yet.</p>
+                        <button class="btn btn-primary mt-4" id="empty-add-btn">Add First Product</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
